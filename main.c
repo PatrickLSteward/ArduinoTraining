@@ -6,14 +6,14 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 //function to convert from C to F
 float celToFrah(float Celsius) {	
     float Fahrenheit = (9.0/5.0)*(Celsius) + 32.0; 
-    mode = 'F'; // sets mode to Fahrenheit
+    //mode = 'F'; // sets mode to Fahrenheit
     return Fahrenheit;
 }
 
 //funcion to conver F to C
 float frahToCel(float Fahrenheit) {
     float Celsius = (5.0/9.0)*(Fahrenheit - 32.0);
-    mode = 'C'; // sets mode to Celsius
+    //mode = 'C'; // sets mode to Celsius
     return Celsius;
 }
 
@@ -34,7 +34,7 @@ int getStatus(){
   return 0;
 }
 
-//Temp display funcion
+//Temp display funcion//think about removing
 void lcdDisplay()
 {
   lcd.setCursor(0, 0);
@@ -100,11 +100,12 @@ if(getStatus == 1){
 	// reset the debouncing timer
 	lastDebounceTime = millis();
 	lcd.begin(16, 2);
-	lcd.print("OVERHEATEd");
+	lcd.print("OVERHEATED");
 	lcd.setCursor(0, 1);
 	lcd.print("Temp: ");
 	lcd.print(getTemp);
-	lcd.print(mode);
+	mode = 'F';
+	lcd.print(mode);//defaults to F
 	}
 
 	if ((millis() - lastDebounceTime) > debounceDelay) {
@@ -113,10 +114,11 @@ if(getStatus == 1){
 			// only toggle the LED if the new button state is HIGH
 			if (buttonState == HIGH) {
 				lcd.begin(16, 2);
-				lcd.print("OVERHEATEd");
+				lcd.print("OVERHEATED");
 				lcd.setCursor(0, 1);
 				lcd.print("Temp: ");
 				lcd.print(frahToCel(getTemp);
+				mode = 'C';
 				lcd.print(mode);
 				}			 
 		}	
@@ -136,7 +138,7 @@ else{
 		lcd.setCursor(0, 1);
 		lcd.print("Temp: ");
 		lcd.print(getTemp);
-		lcd.print(mode);
+		lcd.print('F');
 		}	
 	if ((millis() - lastDebounceTime) > debounceDelay) {
 			if (reading != buttonState) {
@@ -146,7 +148,7 @@ else{
 						lcd.setCursor(0, 1);
 						lcd.print("Temp: ");
 						lcd.print(frahToCel(getTemp);
-						lcd.print(mode);	
+						lcd.print('C');	
 					}	
 			}
 	}	
