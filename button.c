@@ -1,9 +1,27 @@
+// include the library code:
+#include <LiquidCrystal.h>
+// initialize the library with the numbers of the interface pins
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+
+//function to convert from C to F
+float celToFrah(float Celsius) {
+    float Fahrenheit = (9.0/5.0)*(Celsius) + 32.0; 
+    return Fahrenheit;
+}
+
+//funcion to conver F to C
+float frahToCel(float Fahrenheit) {
+    float Celsius = (5.0/9.0)*(Fahrenheit - 32.0);
+    return Celsius;
+}
+
 // constants won't change. They're used here to
 // set pin numbers:
 const int buttonPin = 2;    // the number of the pushbutton pin
 
 // Variables will change:
-//int ledState = HIGH;         // the current state of the output pin...will be changed to current temp reading
+int ledState = HIGH;         // the current state of the output pin...will be changed to current temp reading
 int buttonState;             // the current reading from the input pin
 int lastButtonState = LOW;   // the previous reading from the input pin
 
@@ -12,19 +30,13 @@ int lastButtonState = LOW;   // the previous reading from the input pin
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
 unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
 
-//Testing Variable for Tempature
-float temp = 50; 
-float celToFrah(float);
-float frahToCel(float);
-
-
 void setup() {
+  // pin for the button
   pinMode(buttonPin, INPUT);
-  //pinMode(ledPin, OUTPUT);
-
-  // set initial LED state...not needed
-  //digitalWrite(ledPin, ledState);
-  //add function to assign temp reading as F
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  // Print a message to the LCD.
+  lcd.print("NORMAL");
   
 }
 
@@ -40,6 +52,8 @@ void loop() {
   if (reading != lastButtonState) {
     // reset the debouncing timer
     lastDebounceTime = millis();
+    lcd.setCursor(0, 1);
+	lcd.print("Temp in F");
   }
 
   if ((millis() - lastDebounceTime) > debounceDelay) {
@@ -54,26 +68,11 @@ void loop() {
       if (buttonState == HIGH) {
         //ledState = !ledState;
         //add a function to change F to C
-        printf("The Tempature is: %f degrees Celsius\n", frahToCel(temp)); //prints out the conversion of F to c without saving over the temp variable
-        
+		 lcd.setCursor(0, 1);
+	     lcd.print("Temp in C");
       }
     }
   }
-
-  // set the LED:
-  digitalWrite(ledPin, ledState);
-
-  // save the reading.  Next time through the loop,
+ // save the reading.  Next time through the loop,
   // it'll be the lastButtonState:
   lastButtonState = reading;
-}
-
-//Change Tempature Functions
-float celToFrah(float Celsius) {
-    float Fahrenheit = (9.0/5.0)*(Celsius) + 32.0; 
-    return Fahrenheit;
-}
-float frahToCel(float Fahrenheit) {
-    float Celsius = (5.0/9.0)*(Fahrenheit - 32.0);
-    return Celsius;
-}
