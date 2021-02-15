@@ -12,6 +12,12 @@ int lastButtonState = LOW;   // the previous reading from the input pin
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
 unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
 
+//Testing Variable for Tempature
+float temp = 50; 
+float celToFrah(float);
+float frahToCel(float);
+
+
 void setup() {
   pinMode(buttonPin, INPUT);
   //pinMode(ledPin, OUTPUT);
@@ -48,6 +54,8 @@ void loop() {
       if (buttonState == HIGH) {
         //ledState = !ledState;
         //add a function to change F to C
+        printf("The Tempature is: %f degrees Celsius\n", frahToCel(temp)); //prints out the conversion of F to c without saving over the temp variable
+        
       }
     }
   }
@@ -58,4 +66,14 @@ void loop() {
   // save the reading.  Next time through the loop,
   // it'll be the lastButtonState:
   lastButtonState = reading;
+}
+
+//Change Tempature Functions
+float celToFrah(float Celsius) {
+    float Fahrenheit = (9.0/5.0)*(Celsius) + 32.0; 
+    return Fahrenheit;
+}
+float frahToCel(float Fahrenheit) {
+    float Celsius = (5.0/9.0)*(Fahrenheit - 32.0);
+    return Celsius;
 }
