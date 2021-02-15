@@ -3,7 +3,7 @@
 const int buttonPin = 2;    // the number of the pushbutton pin
 
 // Variables will change:
-int ledState = HIGH;         // the current state of the output pin...will be changed to current temp reading
+//int ledState = HIGH;         // the current state of the output pin...will be changed to current temp reading
 int buttonState;             // the current reading from the input pin
 int lastButtonState = LOW;   // the previous reading from the input pin
 
