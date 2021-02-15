@@ -23,5 +23,28 @@ Requirements (Low Level):
 - The LCD_DISPLAY shall display an OVER_HEATING_MESSAGE should the HIGH_TEMPERATURE_THRESHOLD be exceeded.
 - The LED shall light up if the HIGH_TEMPERATURE_THRESHOLD is exceeded.
 
+Tasks:
+- set up the circuit
+
+Function Requirements:
+- int getTemp(potentiometer input); // returns temperature in Fahrenheit
+- int getStatus(); // reurns a corresponding alert flag for a specified threshold
+    - 0 = normal
+    - 1 = high (alert)
+- string DispMessage(float potentionmeter_val, int mode, int alert)
+   mode: 0: F, 1:C
+   alert 0: ok, 1: above threshold
+
 Roles:
+
+Patrick Steward - potentiometer temperature conversion function
+
+Abdulahi Daud - LCD Display function
+
+Jinto James - warning system (buzzer and LED)
+ 
+Sukhwinder Singh - button (toggle) main function 
+
+Yizhe (Victor)  Yuan - temperature conversion functions
+
 
