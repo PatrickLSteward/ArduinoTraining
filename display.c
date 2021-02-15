@@ -45,16 +45,26 @@
 // initialize the library with the numbers of the interface pins
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
+int overHeat = 0;
+int pot = A0; //potentiometer pin
 float temp = 125.0;
 char mode = 'F';
   
 int getStatus()
-{
+{ 
   if(mode=='F' && temp>=100)
     return 1;
   else if(mode=='C' && temp>= 37.7778)
     return 1;
   return 0;
+}
+
+float getTemp(){
+  int sensorValue = 0; //potentiometer sensor value
+  sensorValue = analogRead(A0);// read the input of the potentiometer (0 - 1023)
+  temp = .1173*sensorValue; // scale to F
+  //lcd.clear();
+  return temp;
 }
 
 void lcdDisplay()
@@ -65,13 +75,26 @@ void lcdDisplay()
   lcd.print(mode);
   
   lcd.setCursor(0, 1);
-  if(getStatus()==1)
+  if(getStatus()==1){
     lcd.print("Alr: OVERHEATING");
+    overHeat = 1;
+  }
+  else{
+    //delay(2000);
+    if(overHeat == 1){
+    	lcd.clear();
+        overHeat = 0;
+    }
+  }
 }
+
+
+
 
 void setup() {
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
+  pinMode(pot, INPUT);
   // Print a message to the LCD.
   
 }
@@ -79,8 +102,9 @@ void setup() {
 void loop() {
   // set the cursor to column 0, line 1
   // (note: line 1 is the second row, since counting begins with 0):
-  
+  getTemp();
   lcdDisplay();
   
 }
+ 
  
