@@ -3,8 +3,6 @@
 // initialize the library with the numbers of the interface pins
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
-
-
 //function to convert from C to F
 float celToFrah(float Celsius) {	
     float Fahrenheit = (9.0/5.0)*(Celsius) + 32.0; 
@@ -90,30 +88,21 @@ void loop() {
 	delay(1000); 
 
 if(getStatus == 1){
-	digitalWrite(warning_LED, HIGH);  // LED turned ON
-      /* Blinking mode
-      // turn the LED on (HIGH is the voltage level)
-      digitalWrite(warning_LED, HIGH);
-      delay(500); // Wait for 500 millisecond(s)
-      // turn the LED off by making the voltage LOW
-      digitalWrite(warning_LED, LOW);
-      delay(500); // Wait for 500 millisecond(s)
-      */
-      // read the state of the switch into a local variable:
-	
-     // BUZZER ON 
-     // map the sensor reading to a range for the speaker
-     tone(9, 440 * pow(2.0, (constrain(int(map(buzzer_tone_val, 0, 1023, 36, 84)), 35, 127) - 57) / 12.0), 1000);
+     digitalWrite(warning_LED, HIGH);  // LED turned ON
+      
+     // BUZZER ON
+     tone(9, 440 * pow(2.0, (constrain(int(map(buzzer_tone_val, 0, 1023, 36, 84)), 35, 127) - 57) / 12.0), 1000); // map the sensor reading to a range for the speaker
      delay(10); // Delay a little bit to improve simulation performance
  
-    //Buttton to switch reading
-    int reading = digitalRead(buttonPin);
-    if (reading != lastButtonState) {
+     //Buttton to switch reading
+     int reading = digitalRead(buttonPin);
+     if (reading != lastButtonState) {
 	// reset the debouncing timer
 	lastDebounceTime = millis();
 	lcd.begin(16, 2);
 	lcd.print("OVERHEATEd");
 	lcd.setCursor(0, 1);
+	lcd.print("Temp: ");
 	lcd.print(getTemp);
 	lcd.print(mode);
 	}
@@ -126,6 +115,7 @@ if(getStatus == 1){
 				lcd.begin(16, 2);
 				lcd.print("OVERHEATEd");
 				lcd.setCursor(0, 1);
+				lcd.print("Temp: ");
 				lcd.print(frahToCel(getTemp);
 				lcd.print(mode);
 				}			 
@@ -144,6 +134,7 @@ else{
 		lastDebounceTime = millis();
 		lcd.begin(16, 2);
 		lcd.setCursor(0, 1);
+		lcd.print("Temp: ");
 		lcd.print(getTemp);
 		lcd.print(mode);
 		}	
@@ -153,6 +144,7 @@ else{
 					if (buttonState == HIGH) {
 						lcd.begin(16, 2);
 						lcd.setCursor(0, 1);
+						lcd.print("Temp: ");
 						lcd.print(frahToCel(getTemp);
 						lcd.print(mode);	
 					}	
