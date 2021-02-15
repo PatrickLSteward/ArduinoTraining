@@ -1,4 +1,4 @@
-  // include the library code:
+// include the library code:
 #include <LiquidCrystal.h>
 // initialize the library with the numbers of the interface pins
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
@@ -40,12 +40,10 @@ int buzzer_tone_val = 500;
 //potentiometer pin
 int pot = A0; 
 
-
-
 int ledState = HIGH;         // the current state of the output pin...will be changed to current temp reading
 int buttonState;             // the current reading from the input pin
 int lastButtonState = LOW;   // the previous reading from the input pin
-int alert_status=0;			 // current alert status
+int alert_status=0;	    // current alert status
 
 
 // the following variables are unsigned long's because the time, measured in miliseconds,
@@ -86,37 +84,28 @@ if(getStatus == 1){
       */
       // read the state of the switch into a local variable:
 	
-	// BUZZER ON 
-    // map the sensor reading to a range for the speaker
-    tone(9, 440 * pow(2.0, (constrain(int(map(buzzer_tone_val, 0, 1023, 36, 84)), 35, 127) - 57) / 12.0), 1000);
-	delay(10); // Delay a little bit to improve simulation performance
+     // BUZZER ON 
+     // map the sensor reading to a range for the speaker
+     tone(9, 440 * pow(2.0, (constrain(int(map(buzzer_tone_val, 0, 1023, 36, 84)), 35, 127) - 57) / 12.0), 1000);
+     delay(10); // Delay a little bit to improve simulation performance
  
+    //Buttton to switch reading
     int reading = digitalRead(buttonPin);
-
-     // check to see if you just pressed the button
-     // (i.e. the input went from LOW to HIGH),  and you've waited
-     // long enough since the last press to ignore any noise:
-     // If the switch changed, due to noise or pressing:
-	 if (reading != lastButtonState) {
-		// reset the debouncing timer
-		lastDebounceTime = millis();
-		 lcd.begin(16, 2);
-		// Print a message to the LCD.
-		lcd.print("OVERHEATED");
-		lcd.setCursor(0, 1);
-		lcd.print(celToFrah);
-		}
+    if (reading != lastButtonState) {
+	// reset the debouncing timer
+	lastDebounceTime = millis();
+	lcd.begin(16, 2);
+	// Print a message to the LCD.
+	lcd.print("OVERHEATED");
+	lcd.setCursor(0, 1);
+	lcd.print(celToFrah);
+	}
 
 	if ((millis() - lastDebounceTime) > debounceDelay) {
-		// whatever the reading is at, it's been there for longer
-		// than the debounce delay, so take it as the actual current state:
-		// if the button state has changed:
 		if (reading != buttonState) {
 			buttonState = reading;
 			// only toggle the LED if the new button state is HIGH
 			if (buttonState == HIGH) {
-				//ledState = !ledState;
-				//add a function to change F to C
 				// Print a message to the LCD.
 				lcd.print("OVERHEATED");
 				lcd.setCursor(0, 1);
@@ -125,8 +114,6 @@ if(getStatus == 1){
 				}			 
 		}	
 	}
- // save the reading.  Next time through the loop,
-  // it'll be the lastButtonState:
   lastButtonState = reading;
 					
 					
@@ -134,35 +121,22 @@ if(getStatus == 1){
 else{
   digitalWrite(warning_LED, LOW); // LED turned OFF	
   // read the state of the switch into a local variable:
-  int reading = digitalRead(buttonPin);
-  // check to see if you just pressed the button
-  // (i.e. the input went from LOW to HIGH),  and you've waited
-  // long enough since the last press to ignore any noise:
-  // If the switch changed, due to noise or pressing:
+  int reading = digitalRead(buttonPin)
 	if (reading != lastButtonState) {
 		// reset the debouncing timer
 		lastDebounceTime = millis();
 		lcd.setCursor(0, 1);
 		lcd.print("Temp in F");
 		}	
-
 	if ((millis() - lastDebounceTime) > debounceDelay) {
-		// whatever the reading is at, it's been there for longer
-		// than the debounce delay, so take it as the actual current state:
-		// if the button state has changed:
 			if (reading != buttonState) {
 				buttonState = reading;
-				// only toggle the LED if the new button state is HIGH
 					if (buttonState == HIGH) {
-						//ledState = !ledState;
-						//add a function to change F to C
 						lcd.setCursor(0, 1);
 						lcd.print(frahToCel);
 					}	
 			}
 	}	
-	// save the reading.  Next time through the loop,
-	// it'll be the lastButtonState:
 	lastButtonState = reading;
 }
 }
