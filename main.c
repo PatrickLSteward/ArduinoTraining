@@ -24,6 +24,7 @@ float getTemp(){
   int sensorValue = 0;
   sensorValue = analogRead(A0);// read the input of the potentiometer (0 - 1023)
   temp = .1173*sensorValue; // scale to F
+  mode = 'F';
   return temp;
 }
 
@@ -110,7 +111,11 @@ if(getStatus == 1){
     if (reading != lastButtonState) {
 	// reset the debouncing timer
 	lastDebounceTime = millis();
-	lcdDisplay()
+	lcd.begin(16, 2);
+	lcd.print("OVERHEATEd");
+	lcd.setCursor(0, 1);
+	lcd.print(getTemp);
+	lcd.print(mode);
 	}
 
 	if ((millis() - lastDebounceTime) > debounceDelay) {
@@ -118,7 +123,11 @@ if(getStatus == 1){
 			buttonState = reading;
 			// only toggle the LED if the new button state is HIGH
 			if (buttonState == HIGH) {
-				lcdDisplay();
+				lcd.begin(16, 2);
+				lcd.print("OVERHEATEd");
+				lcd.setCursor(0, 1);
+				lcd.print(frahToCel(getTemp);
+				lcd.print(mode);
 				}			 
 		}	
 	}
@@ -133,13 +142,19 @@ else{
 	if (reading != lastButtonState) {
 		// reset the debouncing timer
 		lastDebounceTime = millis();
-		lcdDisplay();
+		lcd.begin(16, 2);
+		lcd.setCursor(0, 1);
+		lcd.print(getTemp);
+		lcd.print(mode);
 		}	
 	if ((millis() - lastDebounceTime) > debounceDelay) {
 			if (reading != buttonState) {
 				buttonState = reading;
 					if (buttonState == HIGH) {
-						lcdDisplay;
+						lcd.begin(16, 2);
+						lcd.setCursor(0, 1);
+						lcd.print(frahToCel(getTemp);
+						lcd.print(mode);	
 					}	
 			}
 	}	
