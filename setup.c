@@ -13,6 +13,7 @@ void setup()
   pinMode(A0, INPUT);
 }
 
+//Tempature Functions 
 float celToFrah(float Celsius) {
     float Fahrenheit = (9.0/5.0)*(Celsius) + 32.0; 
     return Fahrenheit;
