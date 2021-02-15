@@ -9,6 +9,7 @@ int getStatus();
 int sensorValue = 0; //potentiometer sensor value
 int pot = A0; //potentiometer pin
 float temp = 32.0; //temperature; // initialized to 32.0 but that changes as soon as the potentiometer has a value
+char mode = 'F'; // global mode character // this might not be a good practice
 
 void setup()
 {
@@ -17,12 +18,14 @@ void setup()
 
 //Tempature Functions 
 float celToFrah(float Celsius) {
-    float Fahrenheit = (9.0/5.0)*(Celsius) + 32.0; 
+    float Fahrenheit = (9.0/5.0)*(Celsius) + 32.0;
+    mode = 'F'; // sets mode to Fahrenheit
     return Fahrenheit;
 }
 
 float frahToCel(float Fahrenheit) {
     float Celsius = (5.0/9.0)*(Fahrenheit - 32.0);
+    mode = 'C'; // sets mode to celsius
     return Celsius;
 }
 
