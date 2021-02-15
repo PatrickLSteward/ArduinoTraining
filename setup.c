@@ -5,8 +5,9 @@ float celToFrah(float);
 float frahToCel(float);
 
 
-int pot = A0; // potentionmeter analog pin
-
+int sensorValue = 0; //potentiometer sensor value
+int pot = A0; //potentiometer pin
+int temp = 32; //temperature;
 
 void setup()
 {
@@ -22,4 +23,10 @@ float celToFrah(float Celsius) {
 float frahToCel(float Fahrenheit) {
     float Celsius = (5.0/9.0)*(Fahrenheit - 32.0);
     return Celsius;
+}
+
+int getTemp(){
+  sensorValue = analogRead(A0);// read the input of the potentiometer (0 - 1023)
+  temp = .1173*sensorValue; // scale to F
+  return temp;
 }
