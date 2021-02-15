@@ -37,6 +37,8 @@ const int buttonPin = 2;
 int warning_LED = 13; 
 // modify this value to change output tone/ frequency
 int buzzer_tone_val = 500; 
+//potentiometer pin
+int pot = A0; 
 
 
 
@@ -62,9 +64,12 @@ void setup() {
   pinMode(warning_LED, OUTPUT);
   // 8-ohm speaker on digital pin 'warning_Buzzer'
   pinMode(warning_Buzzer, OUTPUT); 
-}
+  //Potentiometer pin
+  pinMode(A0, INPUT);
   
 }
+  
+
 
 void loop() {
 	delay(1000); 
