@@ -48,9 +48,9 @@ char mode = 'F';
   
 int getStatus()
 {
-  if(mode=='F' && temp>=100 && temp<=120)
+  if(mode=='F' && temp>=100)
     return 1;
-  else if(mode=='C' && temp>=(37.7778) && temp<=(48.8889))
+  else if(mode=='C' && temp>= 37.7778)
     return 1;
   return 0;
 }
