@@ -6,6 +6,7 @@ float frahToCel(float);
 float getTemp(); // changed from into to float 
 int getStatus();  
 
+int overHeat = 0; // over heat toggle state variable
 int sensorValue = 0; //potentiometer sensor value
 int pot = A0; //potentiometer pin
 float temp = 32.0; //temperature; // initialized to 32.0 but that changes as soon as the potentiometer has a value
