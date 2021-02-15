@@ -1,0 +1,27 @@
+Engine Temperature System
+
+Components:
+-LED
+-Push button
+-Buzzer
+-LCD Screen
+-Motor
+-Potentiometer
+
+Requirements (High Level):
+- The system shall monitor temperature within the VALID_RANGE. 
+- The system shall display the current temperature on the LCD_DISPLAY.
+- The system shall produce a WARNING if the temperature exceedes HIGH_TEMPERATURE_THRESHOLD.
+
+Requirements (Low Level):
+- VALID_RANGE shall be in the range of 32F to 120F, inclusive.
+- The HIGH_TEMPERATURE_THRESHOLD shall be whithin 100F and 120F, inclusive.
+- The WARNING shall include a LCD_DISPLAY, BUZZER, and LED.
+- The LCD_DISPLAY shall display the current temperature in Celsuis or Fahrenheit.
+- BUTTON shall toggle the temperature between Celsuis and Fahrenheight on LCD_DISPLAY.
+- The BUZZER shall alert the user if the HIGH_TEMPERATURE_THRESHOLD has been exceeded.
+- The LCD_DISPLAY shall display an OVER_HEATING_MESSAGE should the HIGH_TEMPERATURE_THRESHOLD be exceeded.
+- The LED shall light up if the HIGH_TEMPERATURE_THRESHOLD is exceeded.
+
+Roles:
+
