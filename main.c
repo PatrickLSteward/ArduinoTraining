@@ -4,15 +4,18 @@
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 
+
 //function to convert from C to F
-float celToFrah(float Celsius) {
+float celToFrah(float Celsius) {	
     float Fahrenheit = (9.0/5.0)*(Celsius) + 32.0; 
+    mode = 'F'; // sets mode to Fahrenheit
     return Fahrenheit;
 }
 
 //funcion to conver F to C
 float frahToCel(float Fahrenheit) {
     float Celsius = (5.0/9.0)*(Fahrenheit - 32.0);
+    mode = 'C'; // sets mode to Celsius
     return Celsius;
 }
 
@@ -22,6 +25,7 @@ int getTemp(){
   temp = .1173*sensorValue; // scale to F
   return temp;
 }
+
 // gets the current status
 int getStatus(){  
   if(getTemp() > 100){
@@ -30,24 +34,37 @@ int getStatus(){
   return 0;
 }
 
+//Temp display funcion
+void lcdDisplay()
+{
+  lcd.setCursor(0, 0);
+  lcd.print("Temp: ");
+  lcd.print(temp);
+  lcd.print(mode);
+  
+  lcd.setCursor(0, 1);
+  if(getStatus()==1)
+    lcd.print("Alr: OVERHEATING");
+}
 
 //button pin
 const int buttonPin = 2;   
 //warning light pin
 int warning_LED = 13; 
+// 8-ohm speaker on digital pin 9
+int warning_Buzzer = 9;
 // modify this value to change output tone/ frequency
 int buzzer_tone_val = 500; 
 //potentiometer pin
 int pot = A0; 
+// the current reading from the input pin
+int buttonState;    
+// the previous reading from the input pin
+int lastButtonState = LOW;   
+// current alert status
+int alert_status=0;	   
 
-int ledState = HIGH;         // the current state of the output pin...will be changed to current temp reading
-int buttonState;             // the current reading from the input pin
-int lastButtonState = LOW;   // the previous reading from the input pin
-int alert_status=0;	    // current alert status
 
-
-// the following variables are unsigned long's because the time, measured in miliseconds,
-// will quickly become a bigger number than can be stored in an int.
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
 unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
 
@@ -56,8 +73,6 @@ void setup() {
   pinMode(buttonPin, INPUT);
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
-  // Print a message to the LCD.
-  lcd.print("NORMAL");
   // pin for Alert LED
   pinMode(warning_LED, OUTPUT);
   // 8-ohm speaker on digital pin 'warning_Buzzer'
@@ -94,11 +109,7 @@ if(getStatus == 1){
     if (reading != lastButtonState) {
 	// reset the debouncing timer
 	lastDebounceTime = millis();
-	lcd.begin(16, 2);
-	// Print a message to the LCD.
-	lcd.print("OVERHEATED");
-	lcd.setCursor(0, 1);
-	lcd.print(celToFrah);
+	lcdDisplay()
 	}
 
 	if ((millis() - lastDebounceTime) > debounceDelay) {
@@ -106,11 +117,7 @@ if(getStatus == 1){
 			buttonState = reading;
 			// only toggle the LED if the new button state is HIGH
 			if (buttonState == HIGH) {
-				// Print a message to the LCD.
-				lcd.print("OVERHEATED");
-				lcd.setCursor(0, 1);
-				lcd.setCursor(0, 1);
-				lcd.print(frahToCel);
+				lcdDisplay();
 				}			 
 		}	
 	}
@@ -125,15 +132,13 @@ else{
 	if (reading != lastButtonState) {
 		// reset the debouncing timer
 		lastDebounceTime = millis();
-		lcd.setCursor(0, 1);
-		lcd.print("Temp in F");
+		lcdDisplay();
 		}	
 	if ((millis() - lastDebounceTime) > debounceDelay) {
 			if (reading != buttonState) {
 				buttonState = reading;
 					if (buttonState == HIGH) {
-						lcd.setCursor(0, 1);
-						lcd.print(frahToCel);
+						lcdDisplay;
 					}	
 			}
 	}	
