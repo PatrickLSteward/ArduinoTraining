@@ -3,12 +3,12 @@
 //Tempature Functions headers
 float celToFrah(float);
 float frahToCel(float);
-int getTemp();
+float getTemp(); // changed from into to float 
 int getStatus();  
 
 int sensorValue = 0; //potentiometer sensor value
 int pot = A0; //potentiometer pin
-int temp = 32; //temperature;
+float temp = 32.0; //temperature; // initialized to 32.0 but that changes as soon as the potentiometer has a value
 
 void setup()
 {
@@ -26,9 +26,9 @@ float frahToCel(float Fahrenheit) {
     return Celsius;
 }
 
-int getTemp(){
-  sensorValue = analogRead(A0);// read the input of the potentiometer (0 - 1023)
-  temp = .1173*sensorValue; // scale to F
+float getTemp(){
+  int sensorValue = analogRead(A0);// read the input of the potentiometer (0 - 1023) //added int 
+  temp = .1173*sensorValue; // scale to F 
   return temp;
 }
 
