@@ -20,7 +20,8 @@ float frahToCel(float Fahrenheit) {
 }
 
 //converts temp from potentiometer
-int getTemp(){
+float getTemp(){
+  int sensorValue = 0;
   sensorValue = analogRead(A0);// read the input of the potentiometer (0 - 1023)
   temp = .1173*sensorValue; // scale to F
   return temp;
