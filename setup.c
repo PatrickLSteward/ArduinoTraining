@@ -6,6 +6,7 @@ float frahToCel(float);
 float getTemp(); // changed from into to float 
 int getStatus();  
 
+int prevTemp = 0; // keeps track of the previous temp inorder to regulate display output
 int overHeat = 0; // over heat toggle state variable
 int sensorValue = 0; //potentiometer sensor value
 int pot = A0; //potentiometer pin
@@ -41,4 +42,29 @@ int getStatus(){ // gets the current status
     return 1;
   }
   return 0;
+}
+
+void lcdDisplay()
+{
+  lcd.setCursor(0, 0);
+  lcd.print("Temp: ");
+  lcd.print(temp);
+  lcd.print(mode);
+  
+  lcd.setCursor(0, 1);
+  if(temp < 10 && prevTemp >= 10){
+    lcd.clear();
+  }
+  if(getStatus()==1){
+    lcd.print("Alr: OVERHEATING");
+    overHeat = 1;
+  }
+  else{
+    //delay(2000);
+    if(overHeat == 1){
+    	lcd.clear();
+        overHeat = 0;
+    }
+  }
+  prevTemp = temp;
 }
