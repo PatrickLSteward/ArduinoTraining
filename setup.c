@@ -13,11 +13,6 @@ int pot = A0; //potentiometer pin
 float temp = 32.0; //temperature; // initialized to 32.0 but that changes as soon as the potentiometer has a value
 char mode = 'F'; // global mode character // this might not be a good practice
 
-void setup()
-{
-  pinMode(A0, INPUT);
-}
-
 //Tempature Functions 
 float celToFrah(float Celsius) {
     float Fahrenheit = (9.0/5.0)*(Celsius) + 32.0;
@@ -90,4 +85,13 @@ void checkWarning()
   // BUZZER OFF (map the ZERO to a range for the speaker)
   tone(9, 0 * pow(2.0, (constrain(int(map(0, 0, 1023, 36, 84)), 35, 127) - 57) / 12.0), 1000);
   }
+}
+
+void setup()
+{
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  pinMode(pot, INPUT);
+  pinMode(warning_LED, OUTPUT); // Warning LED 
+  pinMode(warning_Buzzer, OUTPUT); // Buzzer
 }
