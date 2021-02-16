@@ -1,9 +1,9 @@
 /*
-warning alert: Unit design file
-https://www.tinkercad.com/things/2AZribQtGd1-buzzer-single-tone/editel
+warning_alert unit: design file (shared link)
+https://www.tinkercad.com/things/2AZribQtGd1-buzzer-single-tone/editel?sharecode=PXwsqKeWkQg7xeoGHnL4eg93xnoFQPpJvJCtfuHSjqA
 */
 
-// ----------------- current main file in Tinker cad
+// ----------------- current main file in Tinker cad (shared link)
 // https://www.tinkercad.com/things/bcYCzrg4nFG-incredible-inari-migelo/editel?sharecode=av7Rh9uGiLQU6c5irZN8O2epLqYH-OG6mPIqSpGsrbk
 ///////////////////////////////////////////////////
 
