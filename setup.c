@@ -68,3 +68,26 @@ void lcdDisplay()
   }
   prevTemp = temp;
 }
+
+void checkWarning()
+{ // Warning_Alert - Variables
+	int buzzer_tone_val = 500; // modify this value to change output tone/ frequency
+	int alert_status=1;
+	int warning_Buzzer = 9; // 8-ohm speaker on digital pin 9
+	int warning_LED = 13; // Buzzer connected to pin 13
+
+
+  // Warning_alert (Buzzer, LED)
+  alert_status = getStatus();
+  if (alert_status==1){
+   digitalWrite(warning_LED, HIGH);  // LED turned ON               
+  // BUZZER ON (map the buzzer_tone_val to a range for the speaker)
+  tone(9, 440 * pow(2.0, (constrain(int(map(buzzer_tone_val, 0, 1023, 36, 84)), 35, 127) - 57) / 12.0), 1000);
+ // delay(10); // Delay a little bit to improve simulation performance
+   }
+  else {
+  digitalWrite(warning_LED, LOW); // LED turned OFF
+  // BUZZER OFF (map the ZERO to a range for the speaker)
+  tone(9, 0 * pow(2.0, (constrain(int(map(0, 0, 1023, 36, 84)), 35, 127) - 57) / 12.0), 1000);
+  }
+}
