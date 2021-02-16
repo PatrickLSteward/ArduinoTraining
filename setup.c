@@ -6,12 +6,18 @@ float frahToCel(float);
 float getTemp(); // changed from into to float 
 int getStatus();  
 
+
 int prevTemp = 0; // keeps track of the previous temp inorder to regulate display output
 int overHeat = 0; // over heat toggle state variable
 int sensorValue = 0; //potentiometer sensor value
 int pot = A0; //potentiometer pin
 float temp = 32.0; //temperature; // initialized to 32.0 but that changes as soon as the potentiometer has a value
 char mode = 'F'; // global mode character // this might not be a good practice
+// Warning_Alert - Variables
+int buzzer_tone_val = 500; // modify this value to change output tone/ frequency
+int alert_status=1;
+int warning_Buzzer = 9; // 8-ohm speaker on digital pin 9
+int warning_LED = 13; // Buzzer connected to pin 13
 
 //Tempature Functions 
 float celToFrah(float Celsius) {
@@ -65,13 +71,7 @@ void lcdDisplay()
 }
 
 void checkWarning()
-{ // Warning_Alert - Variables
-	int buzzer_tone_val = 500; // modify this value to change output tone/ frequency
-	int alert_status=1;
-	int warning_Buzzer = 9; // 8-ohm speaker on digital pin 9
-	int warning_LED = 13; // Buzzer connected to pin 13
-
-
+{ 
   // Warning_alert (Buzzer, LED)
   alert_status = getStatus();
   if (alert_status==1){
